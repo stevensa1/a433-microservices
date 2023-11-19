@@ -1,0 +1,20 @@
+version: '3.7'
+
+services:
+  item-app:
+    image: ghcr.io/stevensa1/item-app:v1
+    ports:
+      - "80:8080"
+    depends_on:
+      - item-db
+    restart: always
+    command: ["npm", "start"]
+
+  item-db:
+    image: mongo:3
+    volumes:
+      - app-db:/data/db
+    restart: always
+
+volumes:
+  app-db:
