@@ -1,20 +1,31 @@
+# Gunakan docker-compose yml dengan versi 3.7
 version: '3.7'
 
+# Layanan yang akan digunakan saat menjalankan docker-compose up
 services:
   item-app:
+  # Gunakan image container yang berasal dari registry Github Container Registry *ghcr.io*
     image: ghcr.io/stevensa1/item-app:v1
+    # Gunakan port 80 untuk mengakses aplikasi dan port 8080 dalam container
     ports:
       - "80:8080"
+    # Container item-app bergantung pada container item-db, menunggu item-db dimulaikan terlebih dahulu
     depends_on:
       - item-db
+    # Selalu restart container item-app jika terhenti
     restart: always
+    # Jalankan perintah 'npm start' saat container item-app dimulai
     command: ["npm", "start"]
 
   item-db:
+    # Gunakan image container dari Docker Hub (Default) untuk MongoDB versi 3
     image: mongo:3
+    # Gunakan volume app-db debgan path /data/db untuk menyimpan data MongoDB
     volumes:
       - app-db:/data/db
+    # Selalu restart container item-app jika terhenti
     restart: always
 
 volumes:
+  # Buat volume baru dengan nama app-db
   app-db:

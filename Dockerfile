@@ -1,21 +1,21 @@
-# Use Node.js version 14 as the base image
+# Gunakan image NodeJS dengan versi 14
 FROM node:14
 
-# Set the working directory to /app
+# Atur directory untuk kerja atau WORKDIRECTORY ke path /app
 WORKDIR /app
 
-# Copy the source code into the container
+# Copy seluruh source code pada folder a433-microservices ke dalam container dalam directory /path
 COPY . /app
 
-# Set environment variables
+# Atur environment variable untuk NodeJS
 ENV NODE_ENV=production
 ENV DB_HOST=item-db
 
-# Install production dependencies and build the application
+# Install dependensi untuk produksi dan membangun atau build aplikasi
 RUN npm install --production --unsafe-perm && npm run build
 
-# Expose the port used by the application
+# Expose port 8080 untuk aplikasi dalam container
 EXPOSE 8080
 
-# Command to run the application
+# Perintah yang akan dijalankan ketika container dijalankan untuk memulai aplikasi
 CMD ["npm", "start"]
