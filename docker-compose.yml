@@ -14,8 +14,6 @@ services:
       - item-db
     # Selalu restart container item-app jika terhenti
     restart: always
-    # Jalankan perintah 'npm start' saat container item-app dimulai
-    command: ["npm", "start"]
 
   item-db:
     # Gunakan image container dari Docker Hub (Default) untuk MongoDB versi 3
