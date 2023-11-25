@@ -1,12 +1,5 @@
 version: 2.1
 
-workflows:
-  karsajobs-workflow:
-    jobs:
-      - lint-dockerfile
-      - test-app
-      - build-app-karsajobs
-
 jobs:
   lint-dockerfile:
     docker:
@@ -23,7 +16,7 @@ jobs:
             hadolint Dockerfile
   test-app:
     docker:
-      image: circleci/golang:1.15-alpine
+      - image: circleci/golang:1.15-alpine
     steps:
       - checkout
       - run:
@@ -37,7 +30,7 @@ jobs:
             go test -v -short --count=1 $(go list ./...)
   build-app-karsajobs:
     docker:
-      image: circleci/golang:1.15-alpine
+      - image: circleci/golang:1.15-alpine
     steps:
       - checkout
       - run:
@@ -49,3 +42,10 @@ jobs:
           command: |
             docker build -t ghcr.io/stevensa1/karsajobs:latest .
             docker push ghcr.io/stevensa1/karsajobs:latest
+
+workflows:
+  karsajobs-workflow:
+    jobs:
+      - lint-dockerfile
+      - test-app
+      - build-app-karsajobs
