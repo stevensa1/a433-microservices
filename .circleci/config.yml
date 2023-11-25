@@ -48,12 +48,7 @@ jobs:
       - run:
           name: Build app
           command: |
-            go build -o karsajobs
-      # - run:
-      #     name: Push image
-      #     command: |
-      #       docker build -t ghcr.io/stevensa1/karsajobs:latest .
-      #       docker push ghcr.io/stevensa1/karsajobs:latest
+            bash ./scripts/build_push_image_karsajobs.sh
 
 workflows:
   karsajobs-workflow:
