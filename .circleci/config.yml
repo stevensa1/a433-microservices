@@ -35,6 +35,7 @@ jobs:
       - run:
           name: Test app
           command: |
+            cd $CIRCLE_WORKING_DIRECTORY
             go test -v -short --count=1 $(go list ./...)
   build-app-karsajobs:
     docker:
@@ -44,11 +45,8 @@ jobs:
       - run:
           name: Build app
           command: |
+            cd $CIRCLE_WORKING_DIRECTORY
             go build -o karsajobs
-      - run:
-          name: Debug Directory
-          command: |
-            dir
       - run:
           name: Push image
           command: |
