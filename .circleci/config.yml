@@ -3,15 +3,9 @@ version: 2.1
 jobs:
   lint-dockerfile:
     docker:
-      - image: golang:1.15-alpine
+      - image: hadolint/hadolint:latest-debian
     steps:
       - checkout
-      - run:
-          name: Install hadolint locally
-          command: |
-            wget https://github.com/hadolint/hadolint/releases/download/v2.12.0/hadolint-Linux-x86_64
-            chmod +x hadolint-Linux-x86_64
-            mv hadolint-Linux-x86_64 /usr/local/bin/hadolint
       - run:
           name: Lint Dockerfile
           command: |
