@@ -2,22 +2,20 @@ version: 2.1
 
 jobs:
   lint-dockerfile:
-    docker:
-      - image: golang:1.15-alpine
-    steps:
-      - checkout
-      - run:
-          name: Install curl
-          command: |
-            apk update && apk add curl
-      - run:
-          name: Install hadolint
-          command: |
-            curl -sfL https://raw.githubusercontent.com/hadolint/hadolint/master/install.sh | sh
-      - run:
-          name: Lint Dockerfile
-          command: |
-            hadolint Dockerfile
+  docker:
+    - image: golang:1.15-alpine
+  steps:
+    - checkout
+    - run:
+        name: Install hadolint locally
+        command: |
+          git clone https://github.com/hadolint/hadolint
+          cd hadolint
+          stack install
+    - run:
+        name: Lint Dockerfile
+        command: |
+          hadolint Dockerfile
   test-app:
     docker:
       - image: golang:1.15-alpine
