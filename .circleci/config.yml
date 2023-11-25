@@ -20,6 +20,10 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install curl
+          command: |
+            apk update && apk add curl
+      - run:
           name: Install Go
           command: |
             curl -Ls https://golang.org/dl/go1.15.linux-amd64.tar.gz | tar -C /usr/local -xz
@@ -30,7 +34,7 @@ jobs:
             go test -v -short --count=1 $(go list ./...)
   build-app-karsajobs:
     docker:
-      - image: golang:1.15-alpine
+      - image: circleci/golang:1.15-alpine
     steps:
       - checkout
       - run:
