@@ -11,7 +11,7 @@ jobs:
           command: |
             wget https://github.com/hadolint/hadolint/releases/download/v2.12.0/hadolint-Linux-x86_64
             chmod +x hadolint-Linux-x86_64
-            sudo mv hadolint-Linux-x86_64 /usr/local/bin/hadolint
+            mv hadolint-Linux-x86_64 /usr/local/bin/hadolint
       - run:
           name: Lint Dockerfile
           command: |
