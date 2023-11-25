@@ -26,9 +26,7 @@ jobs:
           command: |
             mkdir -p $PWD/go
             wget https://go.dev/dl/go1.15rc1.linux-amd64.tar.gz
-            tar -xf go1.15rc1.linux-amd64.tar.gz -C $PWD/go
-            export GOPATH=$PWD/go
-            export PATH=$GOPATH/bin:$PATH
+            tar -xf go1.15rc1.linux-amd64.tar.gz -C /usr/local/bin/go
       - run:
           name: Test app
           command: |
