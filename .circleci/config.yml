@@ -22,12 +22,9 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Debug Directory
-          command: |
-            mkdir -p $PWD/go
-      - run:
           name: Install Go
           command: |
+            mkdir -p $PWD/go
             wget https://go.dev/dl/go1.15rc1.linux-amd64.tar.gz
             tar -xf go1.15rc1.linux-amd64.tar.gz -C $PWD/go
             export GOPATH=$PWD/go
@@ -35,7 +32,6 @@ jobs:
       - run:
           name: Test app
           command: |
-            cd $CIRCLE_WORKING_DIRECTORY
             go test -v -short --count=1 $(go list ./...)
   build-app-karsajobs:
     docker:
@@ -45,13 +41,12 @@ jobs:
       - run:
           name: Build app
           command: |
-            cd $CIRCLE_WORKING_DIRECTORY
             go build -o karsajobs
-      - run:
-          name: Push image
-          command: |
-            docker build -t ghcr.io/stevensa1/karsajobs:latest .
-            docker push ghcr.io/stevensa1/karsajobs:latest
+      # - run:
+      #     name: Push image
+      #     command: |
+      #       docker build -t ghcr.io/stevensa1/karsajobs:latest .
+      #       docker push ghcr.io/stevensa1/karsajobs:latest
 
 workflows:
   karsajobs-workflow:
