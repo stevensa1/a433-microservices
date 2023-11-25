@@ -41,12 +41,14 @@ jobs:
           command: |
             go test -v -short --count=1 $(go list ./...)
   build-app-karsajobs:
+    docker:
+      - image: golang:1.15-alpine
     steps:
       - checkout
       - run:
           name: Build app
           command: |
-            bash ./scripts/build_push_image_karsajobs.sh
+            sh ./scripts/build_push_image_karsajobs.sh
 
 workflows:
   karsajobs-workflow:
