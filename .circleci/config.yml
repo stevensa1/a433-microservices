@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   lint-dockerfile:
     docker:
-      - image: circleci/golang:1.15-alpine
+      - image: golang:1.15-alpine
     steps:
       - checkout
       - run:
@@ -16,7 +16,7 @@ jobs:
             hadolint Dockerfile
   test-app:
     docker:
-      - image: circleci/golang:1.15-alpine
+      - image: golang:1.15-alpine
     steps:
       - checkout
       - run:
@@ -30,7 +30,7 @@ jobs:
             go test -v -short --count=1 $(go list ./...)
   build-app-karsajobs:
     docker:
-      - image: circleci/golang:1.15-alpine
+      - image: golang:1.15-alpine
     steps:
       - checkout
       - run:
