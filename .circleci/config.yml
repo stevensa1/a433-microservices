@@ -24,8 +24,8 @@ jobs:
       - run:
           name: Install Go
           command: |
-            mkdir -p $PWD/go
             wget https://go.dev/dl/go1.15rc1.linux-amd64.tar.gz
+            mkdir -p /usr/local/bin/go
             tar -xf go1.15rc1.linux-amd64.tar.gz -C /usr/local/bin/go
       - run:
           name: Test app
