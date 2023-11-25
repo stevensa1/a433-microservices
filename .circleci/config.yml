@@ -1,0 +1,56 @@
+version: 2.1
+
+workflows:
+  main:
+    jobs:
+      - lint-dockerfile
+      - test-app
+      - build-app-karsajobs
+
+jobs:
+  lint-dockerfile:
+    docker:
+      image: circleci/golang:1.15-alpine
+    steps:
+      - checkout
+      - run:
+          name: Install hadolint
+          command: |
+            curl -sfL https://raw.githubusercontent.com/hadolint/hadolint/master/install.sh | sh
+      - run:
+          name: Lint Dockerfile
+          command: |
+            hadolint Dockerfile
+
+jobs:
+  test-app:
+    docker:
+      image: circleci/golang:1.15-alpine
+    steps:
+      - checkout
+      - run:
+          name: Install Go
+          command: |
+            curl -Ls https://golang.org/dl/go1.15.linux-amd64.tar.gz | tar -C /usr/local -xz
+            export PATH=$PATH:/usr/local/go/bin
+      - run:
+          name: Test app
+          command: |
+            go test -v -short --count=1 $(go list ./...)
+
+# The build job will build and push the Karsajobs image to a registry.
+jobs:
+  build-app-karsajobs:
+    docker:
+      image: circleci/golang:1.15-alpine
+    steps:
+      - checkout
+      - run:
+          name: Build app
+          command: |
+            go build -o karsajobs
+      - run:
+          name: Push image
+          command: |
+            docker build -t ghcr.io/stevensa1/karsajobs:latest .
+            docker push ghcr.io/stevensa1/karsajobs:latest

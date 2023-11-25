@@ -47,6 +47,7 @@ func main() {
 func openDB() (*mongo.Client, error) {
 	client, err := mongo.NewClient(options.Client().ApplyURI(fmt.Sprintf("mongodb://%s:%s@%s:27017/?authsource=admin", os.Getenv("MONGO_USER"), os.Getenv("MONGO_PASS"), os.Getenv("MONGO_HOST"))))
 	if err != nil {
+		log.Printf("error connecting to mongodb: %v", err)
 		return nil, err
 	}
 
