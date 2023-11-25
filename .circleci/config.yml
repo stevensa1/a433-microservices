@@ -26,9 +26,9 @@ jobs:
           command: |
             apk update && apk add gcc
       - run:
-          name: Install libc6-compat
+          name: Install musl-dev
           command: |
-            apk add libc6-compat
+            apk add musl-dev
       - run:
           name: Install Go
           command: |
