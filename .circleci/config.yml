@@ -6,7 +6,7 @@ jobs:
       - image: golang:1.15-alpine
     steps:
       - checkout
-       - run:
+      - run:
           name: Install curl
           command: |
             apk update && apk add curl
