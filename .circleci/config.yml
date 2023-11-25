@@ -42,13 +42,16 @@ jobs:
             go test -v -short --count=1 $(go list ./...)
   build-app-karsajobs:
     docker:
-      - image: golang:1.15-alpine
+      - image: cimg/base:2022.09
     steps:
       - checkout
+      - setup_remote_docker
       - run:
-          name: Build app
+          name: Build and Push application Docker image
           command: |
-            sh ./scripts/build_push_image_karsajobs.sh
+            docker build -t ghcr.io/stevensa1/karsajobs:latest .
+            echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
+            docker push ghcr.io/stevensa1/karsajobs:latest
 
 workflows:
   karsajobs-workflow:
