@@ -26,9 +26,9 @@ jobs:
           command: |
             apk update && apk add gcc
       - run:
-          name: Install C standard library development headers
+          name: Install libc6-compat
           command: |
-            apk add libc6-dev
+            apk add libc6-compat
       - run:
           name: Install Go
           command: |
