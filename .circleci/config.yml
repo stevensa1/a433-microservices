@@ -22,6 +22,10 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install gcc
+          command: |
+            apk update && apk add gcc
+      - run:
           name: Install Go
           command: |
             wget https://go.dev/dl/go1.15rc1.linux-amd64.tar.gz
