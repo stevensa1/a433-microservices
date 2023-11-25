@@ -24,7 +24,7 @@ jobs:
             docker push ghcr.io/stevensa1/karsajobs-ui:latest
 
 workflows:
-  karsajobs-workflow:
+  karsajobs-ui-workflow:
     jobs:
       - lint-dockerfile
       - build-app-karsajobs-ui
