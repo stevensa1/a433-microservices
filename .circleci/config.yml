@@ -1,0 +1,30 @@
+version: 2.1
+
+jobs:
+  lint-dockerfile:
+    docker:
+      - image: hadolint/hadolint:latest-debian
+    steps:
+      - checkout
+      - run:
+          name: Lint Dockerfile
+          command: |
+            hadolint Dockerfile
+  build-app-karsajobs-ui:
+    docker:
+      - image: cimg/base:2022.09
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build and Push application Docker image
+          command: |
+            docker build -t ghcr.io/stevensa1/karsajobs-ui:latest .
+            echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
+            docker push ghcr.io/stevensa1/karsajobs-ui:latest
+
+workflows:
+  karsajobs-workflow:
+    jobs:
+      - lint-dockerfile
+      - build-app-karsajobs-ui
