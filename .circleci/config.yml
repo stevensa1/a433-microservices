@@ -27,6 +27,7 @@ jobs:
             wget https://go.dev/dl/go1.15rc1.linux-amd64.tar.gz
             mkdir -p /usr/local/bin/go
             tar -xf go1.15rc1.linux-amd64.tar.gz -C /usr/local/bin/go
+            export PATH=$PATH:/usr/local/bin/go/go/bin
       - run:
           name: Test app
           command: |
