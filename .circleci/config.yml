@@ -26,9 +26,13 @@ jobs:
           command: |
             apk update && apk add curl
       - run:
-          name: Install Go
+          name: Debug Directory
           command: |
             mkdir -p $PWD/go
+            dir
+      - run:
+          name: Install Go
+          command: |
             curl -Ls https://go.dev/dl/go1.15rc1.linux-amd64.tar.gz | tar -xf - -C $PWD/go
             export GOPATH=$PWD/go
             export PATH=$GOPATH/bin:$PATH
@@ -45,6 +49,10 @@ jobs:
           name: Build app
           command: |
             go build -o karsajobs
+      - run:
+          name: Debug Directory
+          command: |
+            dir
       - run:
           name: Push image
           command: |
