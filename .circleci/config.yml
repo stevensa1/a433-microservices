@@ -6,6 +6,10 @@ jobs:
       - image: golang:1.15-alpine
     steps:
       - checkout
+       - run:
+          name: Install curl
+          command: |
+            apk update && apk add curl
       - run:
           name: Install hadolint
           command: |
@@ -34,7 +38,7 @@ jobs:
             go test -v -short --count=1 $(go list ./...)
   build-app-karsajobs:
     docker:
-      - image: circleci/golang:1.15-alpine
+      - image: golang:1.15-alpine
     steps:
       - checkout
       - run:
