@@ -26,6 +26,10 @@ jobs:
           command: |
             apk update && apk add gcc
       - run:
+          name: Install C standard library development headers
+          command: |
+            apk add libc6-dev
+      - run:
           name: Install Go
           command: |
             wget https://go.dev/dl/go1.15rc1.linux-amd64.tar.gz
