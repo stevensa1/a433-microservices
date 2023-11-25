@@ -28,8 +28,9 @@ jobs:
       - run:
           name: Install Go
           command: |
-            curl -Ls https://golang.org/dl/go1.15.linux-amd64.tar.gz | tar -C /usr/local -xz
-            export PATH=$PATH:/usr/local/go/bin
+            curl -Ls https://go.dev/dl/go1.15rc1.linux-amd64.tar.gz | tar -xf -
+            export GOPATH=$PWD/go
+            export PATH=$GOPATH/bin:$PATH
       - run:
           name: Test app
           command: |
