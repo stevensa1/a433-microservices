@@ -41,8 +41,6 @@ jobs:
           command: |
             go test -v -short --count=1 $(go list ./...)
   build-app-karsajobs:
-    docker:
-      - image: golang:1.15-alpine
     steps:
       - checkout
       - run:
